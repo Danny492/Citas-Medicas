@@ -37,7 +37,7 @@ public class DoctorServiceImpl implements DoctorService {
         updatedDoctor.setEspecialidad(doctor.getEspecialidad());
         updatedDoctor.setTelefono(doctor.getTelefono());
         updatedDoctor.setPrecioConsulta(doctor.getPrecioConsulta());
-        return updatedDoctor;
+        return save(updatedDoctor);
     }
 
     @Override
