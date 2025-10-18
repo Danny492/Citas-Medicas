@@ -1,6 +1,8 @@
 package com.citasmedicas_backend.services.impls;
 
+import com.citasmedicas_backend.dtos.DoctorDTO;
 import com.citasmedicas_backend.entities.DoctorEntity;
+import com.citasmedicas_backend.mappers.DoctorMapper;
 import com.citasmedicas_backend.repositories.DoctorRepository;
 import com.citasmedicas_backend.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +17,24 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorRepository doctorRepository;
 
     @Override
-    public List<DoctorEntity> doctors() {
-        return doctorRepository.findAll();
+    public List<DoctorDTO> doctors() {
+        return DoctorMapper.INSTANCE.toDTO(doctorRepository.findAll());
     }
 
     @Override
-    public DoctorEntity findDoctorById(Long id) {
-        return doctorRepository.findById(id).orElse(null);
+    public DoctorDTO findDoctorById(Long id) {
+        return DoctorMapper.INSTANCE.toDTO(doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found")));
     }
 
     @Override
-    public DoctorEntity save(DoctorEntity doctor) {
-        return doctorRepository.save(doctor);
+    public DoctorDTO save(DoctorDTO doctor) {
+        return DoctorMapper.INSTANCE.toDTO(doctorRepository.save(DoctorMapper.INSTANCE.toEntity(doctor)));
     }
 
     @Override
-    public DoctorEntity update(DoctorEntity doctor, Long id) {
-        DoctorEntity updatedDoctor = findDoctorById(id);
+    public DoctorDTO update(DoctorDTO doctor, Long id) {
+        DoctorDTO updatedDoctor = findDoctorById(id);
         updatedDoctor.setId(id);
         updatedDoctor.setNombre(doctor.getNombre());
         updatedDoctor.setEspecialidad(doctor.getEspecialidad());
