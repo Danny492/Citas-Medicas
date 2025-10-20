@@ -41,7 +41,7 @@ public class DoctorController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateDoctor(@Valid @PathVariable Long id, @RequestBody DoctorDTO doctor, BindingResult bindingResult) {
+    public ResponseEntity<?> updateDoctor(@Valid @RequestBody DoctorDTO doctor, BindingResult bindingResult, @PathVariable Long id) {
         if(bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(),HttpStatus.BAD_REQUEST);
         }
