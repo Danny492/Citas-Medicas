@@ -1,5 +1,6 @@
 package com.citasmedicas_backend.entities;
 
+import com.citasmedicas_backend.entities.Enums.EstadoCitaEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,8 @@ public class CitaEntity {
 
     private LocalDateTime fechaHora;
 
-    private String estado; // Pendiente, Confirmada, Completada, Cancelada
+    @Enumerated(EnumType.STRING)
+    private EstadoCitaEnum estado; // Pendiente, Confirmada, Completada, Cancelada
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
