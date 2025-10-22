@@ -33,7 +33,7 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     public CitaDTO findById(Long id) {
-        return CitaMapper.INSTANCE.toDTO(citaRepository.findById(id).orElse(null));
+        return CitaMapper.INSTANCE.toDTO(citaRepository.findById(id).orElseThrow(()-> new RuntimeException("Cita no encontrado")));
     }
 
     @Override
@@ -52,8 +52,8 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     public CitaDTO save(CitaDTO cita) {
-        DoctorEntity doctor = doctorRepository.findById(cita.getDoctorId()).orElse(null);
-        PacienteEntity paciente = pacienteRepository.findById(cita.getPacienteId()).orElse(null);
+        DoctorEntity doctor = doctorRepository.findById(cita.getDoctorId()).orElseThrow(() -> new RuntimeException("Doctor no encontrado"));
+        PacienteEntity paciente = pacienteRepository.findById(cita.getPacienteId()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
         CitaEntity citaEntity = CitaMapper.INSTANCE.toEntity(cita);
         citaEntity.setDoctor(doctor);
         citaEntity.setPaciente(paciente);
