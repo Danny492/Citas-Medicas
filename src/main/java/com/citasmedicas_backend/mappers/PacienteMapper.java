@@ -1,4 +1,4 @@
-package com.citasmedicas_backend.mapper;
+package com.citasmedicas_backend.mappers;
 
 import com.citasmedicas_backend.dtos.PacienteDTO;
 import com.citasmedicas_backend.entities.PacienteEntity;
